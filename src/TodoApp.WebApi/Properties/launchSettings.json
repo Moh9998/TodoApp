@@ -1,0 +1,13 @@
+{
+  "profiles": {
+    "TodoApp.WebApi": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "DB_CONN": "Host=localhost;Port=5432;Database=todo_db;Username=postgres;Password=123"
+      },
+      "applicationUrl": "https://localhost:59417;http://localhost:59418"
+    }
+  }
+}

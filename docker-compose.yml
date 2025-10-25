@@ -1,0 +1,43 @@
+
+version: "3.9"
+services:
+  db:
+    image: postgres:16
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: todo_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  api:
+    build: .
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Development"
+      ConnectionStrings__Database: "Host=db;Port=5432;Database=todo_db;Username=postgres;Password=postgres"
+      Jwt__Issuer: "todo.local"
+      Jwt__Audience: "todo.local"
+      Jwt__Key: "CHANGE_ME_TO_A_LONG_RANDOM_KEY_32+CHARS"
+      Jwt__AccessTokenMinutes: "60"
+      DB_CONN: "Host=db;Port=5432;Database=todo_db;Username=postgres;Password=postgres"
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+
+  pgadmin:
+    image: dpage/pgadmin4:8
+    restart: unless-stopped
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@local
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "5050:80"
+    depends_on:
+      - db
+
+volumes:
+  pgdata:
