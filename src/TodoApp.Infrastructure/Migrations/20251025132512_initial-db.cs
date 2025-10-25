@@ -9,7 +9,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace TodoApp.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class newdbinit : Migration
+    public partial class initialdb : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -185,8 +185,8 @@ namespace TodoApp.Infrastructure.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { new Guid("02ed7ee0-bc7e-48e9-8c2d-7299ccea6f31"), null, "User", "USER" },
-                    { new Guid("a1ec2bc7-2545-49bf-aaf2-0dd178cb5664"), null, "Admin", "ADMIN" }
+                    { new Guid("935fe1b5-ff74-4e12-bfae-6fff08698f57"), null, "User", "USER" },
+                    { new Guid("dd4f65b0-ec58-4fad-9638-e7dd640a7ab5"), null, "Admin", "ADMIN" }
                 });
 
             migrationBuilder.CreateIndex(

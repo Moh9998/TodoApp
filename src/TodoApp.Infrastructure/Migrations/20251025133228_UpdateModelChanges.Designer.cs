@@ -12,8 +12,8 @@ using TodoApp.Infrastructure.Persistence;
 namespace TodoApp.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20251025123500_new-db-init")]
-    partial class newdbinit
+    [Migration("20251025133228_UpdateModelChanges")]
+    partial class UpdateModelChanges
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -196,13 +196,13 @@ namespace TodoApp.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("a1ec2bc7-2545-49bf-aaf2-0dd178cb5664"),
+                            Id = new Guid("81d0a66a-7054-4bc7-9033-fe6272fb3d5b"),
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = new Guid("02ed7ee0-bc7e-48e9-8c2d-7299ccea6f31"),
+                            Id = new Guid("1d1f9960-6b9a-47cc-86a4-626f5653a373"),
                             Name = "User",
                             NormalizedName = "USER"
                         });

@@ -1,4 +1,3 @@
-
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using TodoApp.Domain.Todos;
@@ -8,6 +7,10 @@ namespace TodoApp.Infrastructure.Persistence;
 
 public class ApplicationContext : IdentityDbContext<AppUser, AppRole, Guid>
 {
+    // Use fixed GUIDs for seed data to avoid model drift
+    private static readonly Guid AdminRoleId = new Guid("98e30fe3-5f7c-4c49-8faf-34d690097bda");
+    private static readonly Guid UserRoleId  = new Guid("3d319abd-bc7e-46d1-bcd6-5a0c61e582b0");
+
     public DbSet<TodoItem> Todos => Set<TodoItem>();
 
     public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options) { }
@@ -25,11 +28,9 @@ public class ApplicationContext : IdentityDbContext<AppUser, AppRole, Guid>
             e.HasIndex(x => new { x.IsDeleted, x.IsCompleted, x.Priority });
         });
 
-        var adminRoleId = Guid.NewGuid();
-        var userRoleId = Guid.NewGuid();
         b.Entity<AppRole>().HasData(
-            new AppRole { Id = adminRoleId, Name = "Admin", NormalizedName = "ADMIN" },
-            new AppRole { Id = userRoleId, Name = "User", NormalizedName = "USER" }
+            new AppRole { Id = AdminRoleId, Name = "Admin", NormalizedName = "ADMIN" },
+            new AppRole { Id = UserRoleId,  Name = "User",  NormalizedName = "USER" }
         );
     }
 }
