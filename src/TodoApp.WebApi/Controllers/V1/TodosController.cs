@@ -30,6 +30,13 @@ public sealed class TodosController(IMediator mediator) : ControllerBase
         await mediator.Send(body, ct);
         return NoContent();
     }
+    [HttpGet("{id:guid}")]
+    [Authorize]
+    public async Task<ActionResult> GetById(Guid id, CancellationToken ct)
+    {
+        var todo =  await mediator.Send( new GetOneQuery(id), ct);
+        return Ok(todo);
+    }
 
     [HttpDelete("{id:guid}")]
     [Authorize(Policy = "RequireAdmin")]
