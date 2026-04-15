@@ -194,12 +194,14 @@ namespace TodoApp.Infrastructure.Migrations
                         new
                         {
                             Id = new Guid("98e30fe3-5f7c-4c49-8faf-34d690097bda"),
+                            ConcurrencyStamp = "d0ee5559-3f53-4cd0-af77-8ccb23f2e8fd",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = new Guid("3d319abd-bc7e-46d1-bcd6-5a0c61e582b0"),
+                            ConcurrencyStamp = "9c2a2940-e7e9-4db2-a851-89331747d2d4",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -274,6 +276,41 @@ namespace TodoApp.Infrastructure.Migrations
                         .HasDatabaseName("UserNameIndex");
 
                     b.ToTable("AspNetUsers", (string)null);
+                });
+
+            modelBuilder.Entity("TodoApp.Infrastructure.Identity.RefreshToken", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedUtc")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime>("ExpiresUtc")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("ReplacedByToken")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("Revoked")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Token")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Token")
+                        .IsUnique();
+
+                    b.HasIndex("UserId", "Revoked", "ExpiresUtc");
+
+                    b.ToTable("RefreshTokens");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
