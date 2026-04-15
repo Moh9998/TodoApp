@@ -83,6 +83,8 @@ app.UseAuthorization();
 app.MapControllers();
 app.UseMiddleware<ExceptionMiddleware>( );
 
+app.MapGet("/health", () => "OK");
+
 //using (var scope = app.Services.CreateScope())
 //{
 //    var db = scope.ServiceProvider.GetRequiredService<ApplicationContext>();
